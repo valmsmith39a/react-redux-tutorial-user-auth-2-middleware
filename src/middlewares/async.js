@@ -1,4 +1,4 @@
-export default function({ displatch }) {
+export default function({ dispatch }) {
   // will return next function, then run action function
   return next => action => {
     console.log(action);
@@ -15,7 +15,9 @@ export default function({ displatch }) {
        // create a new action with teh old type, but
        // replace the promise with the response data
        const newAction = { ...action, payload:response }
-       displatch(newAction);
+       // Run newAction through ALL middlewares bc
+       // DO NOT want to write middlewares where order matters
+       dispatch(newAction);
      });
   }
   /* Equivalent to:
